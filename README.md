@@ -1,101 +1,154 @@
-# Vital-Link_portable-ICU
-“Smart ICU Patient Monitoring System with AI-based risk prediction for remote villages and defence (army) areas.”
+🏥 ICU Patient Monitoring System (ESP32-S3)
 
-# 🏥 Portable ICU Monitoring System
+A real-time Smart ICU Monitoring System using ESP32-S3, integrating multiple biomedical sensors to continuously monitor patient vitals and environmental conditions, and display them on a TFT dashboard with alert mechanisms.
 
-A **real-time, portable ICU monitoring system** built using **ESP32** and biomedical sensors to continuously monitor a patient’s vital signs.  
-This project is designed for **hospitals, emergency response units, defense medical support, and remote healthcare** where continuous monitoring is critical.
+📌 Project Overview
 
----
+In Intensive Care Units (ICUs), continuous monitoring of patient vitals is critical. Manual monitoring increases workload and risks delayed response during emergencies.
 
-## 📌 Project Overview
+This project provides a low-cost, real-time ICU monitoring solution that:
 
-The **Portable ICU Monitoring System** measures and displays essential physiological parameters in real time, helping doctors and caregivers make faster and more accurate decisions.
+Continuously tracks patient vitals
 
-The system integrates multiple sensors with an ESP32 microcontroller and sends live data to a dashboard/mobile app for remote monitoring and alerts.
+Detects abnormal conditions automatically
 
----
+Displays all data on a centralized dashboard
 
-## 🔍 Features
+Triggers alerts using buzzer and LEDs
 
-- ❤️ **Heart Rate (HR) Monitoring**
-- 🩸 **SpO₂ (Blood Oxygen Level) Measurement**
-- 🫀 **ECG Signal Acquisition & Visualization**
-- 🌡️ **Body / Room Temperature Monitoring**
-- 🚶 **Fall Detection using MPU6050**
-- 📍 **GPS-based Patient Location Tracking**
-- 🚨 **Emergency Alerts (LED / Buzzer)**
-- 📊 **Real-Time Dashboard Visualization**
-- 🤖 **AI-based Heart Attack Risk Prediction (Planned / Integrated)**
-- 📱 **Cloud & Mobile App Support (Blynk / Web Dashboard)**
+🔧 System Architecture
 
----
+Master ESP32-S3 (Dashboard Unit)
 
-## 🛠️ Hardware Components
+TFT Display (ICU Dashboard)
 
-- **ESP32 / ESP32-S3**
-- **MAX30102** – Heart Rate & SpO₂ Sensor
-- **ECG Sensor Module** (AD8232 or equivalent)
-- **MPU6050** – Accelerometer & Gyroscope (Fall Detection)
-- **Temperature Sensor** (LM35 / DS18B20)
-- **GPS Module (NEO-6M)**
-- **Buzzer**
-- **Alert LEDs**
-- Jumper Wires & Breadboard
-- Power Supply / Battery Pack
+MPU6050 (Fall detection)
 
----
+ECG Sensor
 
-## 🔌 Sensor Connections (Example)
+GPS (Patient location)
 
-| Sensor | ESP32 Pins |
-|------|-----------|
-| MAX30102 SDA | GPIO 21 |
-| MAX30102 SCL | GPIO 22 |
-| MPU6050 SDA | GPIO 21 |
-| MPU6050 SCL | GPIO 22 |
-| ECG Output | Analog Pin |
-| GPS TX | RX Pin |
-| GPS RX | TX Pin |
-| Buzzer | Digital GPIO |
-| LEDs | Digital GPIO |
+UART communication with Slave ESP32
 
-> ⚠️ **Note:** All sensor grounds must be connected to **ESP32 GND**.
+Slave ESP32 (Sensor Unit)
 
----
+MAX30102 (Heart Rate & SpO₂)
 
-## 🧠 AI & Prediction Module
+DHT11 (Room Temperature & Humidity)
 
-- Uses **Machine Learning (Random Forest)** to analyze:
-  - Heart Rate
-  - ECG patterns
-  - SpO₂ levels
-- Predicts **possible heart attack risk**
-- Designed for **early warning**, not as a replacement for medical diagnosis
+Buzzer & Alert LEDs
 
----
+Sends processed data to Master ESP32
 
-## 📊 Dashboard & Visualization
+🧠 Features
 
-- Live ECG waveform
-- Real-time vitals update
-- Patient status (Normal / Warning / Critical)
-- Location tracking via GPS
-- Alerts displayed on dashboard & mobile app
+❤️ Heart Rate Monitoring
 
-Supported platforms:
-- **Blynk App**
-- **Web Dashboard**
-- **Serial Monitor (Debugging)**
+🫁 SpO₂ Monitoring
 
----
+🌡️ Room Temperature Monitoring
 
-## 🚑 Use Cases
+💧 Humidity Monitoring
 
-- ICU & Hospital Patient Monitoring
-- Ambulance & Emergency Services
-- Remote Healthcare & Telemedicine
-- Defense & Military Medical Units
-- Elderly Care & Home Monitoring
+📉 ECG Signal Reading
 
----
+🤕 Fall Detection using MPU6050
+
+📍 Patient Location (GPS)
+
+🚨 Automatic Alert System
+
+🖥️ Real-time ICU Dashboard
+
+🔄 Master–Slave ESP32 Communication
+
+📊 Display Output (TFT Dashboard)
+ICU MONITORING SYSTEM
+ESP32-S3 | PATIENT
+---------------------------
+MPU X: 0.15        HR: 72
+MPU Y: 1.02        SpO2: 98
+MPU Z: 0.10        Room T: 26.5
+Fall: NO           Hum: 55%
+ECG: 1987          Status: OK
+Lat: 18.5204       Buzzer: OFF
+Lon: 73.8567
+
+🔌 Hardware Components
+Component	Purpose
+ESP32-S3	Main controller & TFT dashboard
+ESP32	Sensor processing (slave)
+MAX30102	Heart rate & SpO₂
+DHT11	Temperature & humidity
+MPU6050	Fall detection
+ECG Sensor	ECG signal
+GPS Module	Location tracking
+ILI9341 TFT	ICU display
+Buzzer	Emergency alert
+LEDs	Status indication
+🛠️ Software & Libraries
+
+Arduino IDE
+
+LovyanGFX (TFT)
+
+Wire.h (I2C)
+
+MAX30105 Library
+
+DHT Sensor Library
+
+ESP32 HardwareSerial
+
+📂 Repository Structure
+ICU-Monitoring-System/
+│
+├── ESP32_S3_ICU_Dashboard/
+│   └── icu_dashboard_s3.ino
+│
+├── Slave_ESP32_MAX30102/
+│   └── slave_max30102.ino
+│
+├── README.md
+
+⚠️ Alert Logic
+Condition	Status
+Temp ≥ 39°C OR SpO₂ < 90 OR Fall Detected	DANGER
+Temp ≥ 37.5°C	ALERT
+Normal vitals	OK
+
+Buzzer ON during DANGER
+
+Alert LED ON
+
+Dashboard updates in real time
+
+🚀 Applications
+
+ICU patient monitoring
+
+Remote healthcare systems
+
+Smart hospitals
+
+Elderly care systems
+
+Post-surgery monitoring
+
+🔮 Future Enhancements
+
+Cloud integration (Firebase / ThingsBoard)
+
+Mobile app for doctors
+
+ECG waveform plotting
+
+AI-based health prediction
+
+Secure patient data storage
+
+👨‍💻 Developed By
+
+Mayank Saraswati
+Electronics / Embedded Systems
+ESP32 • IoT • Healthcare Tech
